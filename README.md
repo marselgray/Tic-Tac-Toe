@@ -5,8 +5,17 @@ Minimax Algorithm
 
 
 ### Planning/ Execution:
+Basic boilerplate setup
+Initial JS variables and scope
+Detemine winner
+Basic AI setup and winner box
 
 ### JavaScript Concepts used:
+loops
+DOM manipulation
+AI
+data structures
+algorithm
 
 ### About the Minimax Algorithm 
 

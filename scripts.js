@@ -22,7 +22,6 @@ startGame();
 
 // begins game
 function startGame() {
-	console.log('start game');
 	document.querySelector(".endgame").style.display = "none";
 	origBoard = Array.from(Array(9).keys());
 	for (var i = 0; i < cells.length; i++) {
@@ -33,16 +32,20 @@ function startGame() {
 }
 
 function turnClick(square){
-	console.log('turn click');
-
-	// console.log(square.target.id);
 
 	// the human player is doing the turn
-	turn(square.target.id, huPlayer);
+	// turn(square.target.id, huPlayer);
+	
+	if (typeof origBoard[square.target.id] == 'number') {
+		turn(square.target.id, huPlayer)
+	
+		if (!checkTie()) turn(bestSpot(), aiPlayer);
+	}
+		
+
 }
 
 function turn(squareId, player) {
-	console.log('turn');
 	origBoard[squareId] = player;
 
 	document.getElementById(squareId).innerText = player;
@@ -53,7 +56,7 @@ function turn(squareId, player) {
 }
 
 function checkWin(board, player) {
-	console.log('check win');
+	
 	let plays = board.reduce((a, e, i) => 
 		(e === player) ? a.concat(i) : a, []);
 	
@@ -70,7 +73,6 @@ function checkWin(board, player) {
 }
 
 function gameOver(gameWon) {
-	console.log('game over');
 
 	for (let index of winCombos[gameWon.index]) {
 		document.getElementById(index).style.backgroundColor =
@@ -80,4 +82,33 @@ function gameOver(gameWon) {
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
+
+	declareWinner(gameWon.player == huPlayer ? 'You Win!' : 'You Lose');
+}
+
+function declareWinner(who){
+	document.querySelector('.endgame').style.display = 'block';
+	document.querySelector('.endgame .text').innerText = who;
+}
+
+function emptySquares(){
+	return origBoard.filter(s => typeof s == 'number')
+}
+
+function bestSpot(){
+	return emptySquares()[0];
+}
+
+function checkTie(){
+	if (emptySquares().length == 0){
+
+		for (let i = 0; i < cells.length; i++){
+			cells[i].style.backgroundColor = 'green';
+			cells[i].removeEventListener('click', turnClick, false);
+		}
+
+		declareWinner('Tie Game');
+		return true;
+	}
+	return false;
 }
