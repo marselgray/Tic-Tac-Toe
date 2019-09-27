@@ -47,3 +47,35 @@ table tr td:last-child{
 	top: 50%;
 	transform: translate(-50%, -50%);
 }
+
+button{
+	position: absolute;
+    bottom: 20%;
+    left: 50%;
+	transform: translate(-50%);
+	
+	font-size: 16px;
+	padding: 20px;
+	background-color:blue;
+	color: white;
+	font-weight: 900;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+button:focus{
+	outline: none;
+}
+
+button:hover{
+	background-color:orange;
+	color: blue;
+}
+
+h1{
+	position: absolute;
+    bottom: 80%;
+    left: 50%;
+	transform: translate(-50%);
+	text-align: center;
+}
